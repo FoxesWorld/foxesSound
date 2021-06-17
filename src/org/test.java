@@ -18,7 +18,7 @@ public class test {
     public static void test() throws JavaLayerException, FileNotFoundException, InterruptedException {
         playSound snd = new playSound();
         snd.playInternalSound("/assets/start.mp3", 5f);
-        playSound.playExternalSound("https://login.foxesworld.ru/launcher/files/eventSounds/mus/mus9.mp3", (float) -20f);
+        playSound.playExternalSound("https://login.foxesworld.ru/foxxey/eventSounds/common/voice34.mp3", (float) -20f);
         Integer wait = getRandomIntegerBetweenRange(10000, 25000);
         String sound;
         

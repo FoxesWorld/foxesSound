@@ -23,7 +23,7 @@ public final class Bitstream implements BitstreamErrors
 	static byte INITIAL_SYNC = 0; /* Synchronization control constant for the initial synchronization to the start of a frame. */
 	static byte STRICT_SYNC = 1; /* Synchronization control constant for non-initial frame synchronizations. */
 	// max. 1730 bytes per frame: 144 * 384kbit/s / 32000 Hz + 2 Bytes CRC
-	private static final int BUFFER_INT_SIZE = 433; /* Maximum size of the frame buffer. */
+	private static final int BUFFER_INT_SIZE = 866; /* Maximum size of the frame buffer. */
 	private final int[] framebuffer = new int[BUFFER_INT_SIZE]; /* The frame buffer that holds the data for the current frame. */
 	private int framesize; /* Number of valid bytes in the frame buffer. */
 	private byte[] frame_bytes = new byte[BUFFER_INT_SIZE*4]; /* The bytes read from the stream. */
