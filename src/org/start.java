@@ -37,7 +37,7 @@ public class start extends JApplet {
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
             }
             
-            JFrame frame = new JFrame("foxesSound 1.1.8");
+            JFrame frame = new JFrame("foxesSound 1.1.9");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
             JApplet applet = new start();
