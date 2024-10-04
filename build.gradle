@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.johnrengelman:shadow:8.1.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id "com.github.johnrengelman.shadow" version "8.1.0"
+}
+
+application {
+    mainClass = 'org.foxesworld.foxesSound.Start'
+}
+
+group 'org.foxesworld'
+version '1.2.0-lib'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def pass = properties.getProperty('github.package.password')
+def user = properties.getProperty('github.package.username')
+if (pass != null && user != null) {
+    println("Login and password valid!")
+} else {
+    println("Please, check you username or password!")
+}
+
+def libsDir = project.projectDir.toString() + File.separator + "libs"
+
+println(libsDir + " - your project libraries dir...")
+
+repositories {
+    mavenCentral()
+    google()
+
+    maven {
+        url = uri("https://maven.pkg.github.com/FoxesWorld/foxesSound")
+        credentials {
+            username = user
+            password = pass
+        }
+    }
+
+    flatDir {
+        dirs libsDir
+    }
+}
+
+dependencies {
+
+}
+
+apply plugin: "com.github.johnrengelman.shadow"
