@@ -25,10 +25,10 @@ public class Test implements PlaybackCallback {
     }
 
     public void test() throws JavaLayerException, FileNotFoundException, InterruptedException {
-        PlaySound snd = new PlaySound(this);
-        snd.playInternalSound("snd/start.mp3", 5f);
+        PlaySound snd = new PlaySound();
+        snd.playInternalSound("snd/start.mp3", 5f, this);
         Thread.sleep(2100);
-        snd.playInternalSound("snd/mus13.mp3", -10f);
+        snd.playInternalSound("snd/mus13.mp3", -10f, this);
         Integer wait = getRandomIntegerBetweenRange(10000, 25000);
         String sound;
         
@@ -39,7 +39,7 @@ public class Test implements PlaybackCallback {
         }
         send (sound + " " + wait);
         Thread.sleep(5000);
-        snd.playInternalSound(sound, 5f);   
+        snd.playInternalSound(sound, 5f, this);
     }
     
     public static Integer getRandomIntegerBetweenRange(Integer min, Integer max) {

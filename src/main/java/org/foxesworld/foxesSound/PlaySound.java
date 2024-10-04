@@ -21,15 +21,15 @@ public class PlaySound {
     private static final Thread[] threads = new Thread[4];
     private int num = 0;
     public static int UPDATE_RATE = 1000;
-    private final PlaybackCallback callback;
+    private PlaybackCallback callback;
     private final AtomicInteger activeSounds;
 
-    public PlaySound(PlaybackCallback callback) {
-        this.callback = callback;
+    public PlaySound() {
         this.activeSounds = new AtomicInteger(0);
     }
 
-    public void playExternalSound(String file, float volume) {
+    public void playExternalSound(String file, float volume, PlaybackCallback callback) {
+        this.callback = callback;
         if (file.contains("http:") || file.contains("https:")) {
             playSoundFromURL(file);
         } else {
@@ -80,7 +80,8 @@ public class PlaySound {
         }
     }
 
-    public void playInternalSound(String filename, float volume) throws FileNotFoundException {
+    public void playInternalSound(String filename, float volume, PlaybackCallback callback) {
+        this.callback = callback;
         try {
             InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
             if (is == null) {
