@@ -58,10 +58,13 @@ public class PlaySound {
             File file = new File(filePath);
             player = new Player(new FileInputStream(file));
             player.setGain(volume);
+
+            // Start the playback in a new thread
             Thread musPlay = new Thread(() -> {
                 callback.onPlaybackStarted(filePath);
                 try {
                     player.play();
+                    // Continuously update the position while the sound is playing
                     while (!player.isComplete()) {
                         callback.onPlaybackPosition(filePath, player.getPosition());
                         Thread.sleep(UPDATE_RATE); // Update position every second
@@ -70,9 +73,13 @@ public class PlaySound {
                 } catch (JavaLayerException | InterruptedException ex) {
                     Logger.getLogger(PlaySound.class.getName()).log(Level.SEVERE, "Error playing file: " + filePath, ex);
                     callback.onPlaybackError(filePath, ex.getMessage());
+                } finally {
+                    // Ensure completion check is always called
+                    checkAndNotifyCompletion();
                 }
-                checkAndNotifyCompletion();
             });
+
+            // Start the playback thread and increment active sounds count
             startThread(musPlay);
         } catch (FileNotFoundException | JavaLayerException e) {
             Logger.getLogger(PlaySound.class.getName()).log(Level.SEVERE, "File not found or error initializing player: " + filePath, e);
